@@ -21,18 +21,14 @@ NewPing sonar3(TRIGGER_PIN_3, ECHO_PIN_3, MAX_DISTANCE);
 // Define Variables
 float duration1; // Stores First HC-SR04 pulse duration value
 float duration2; // Stores Second HC-SR04 pulse duration value
+float duration3; // Stores third HC-SR04 pulse duration value
 float distance1; // Stores calculated distance in cm for First Sensor
 float distance2; // Stores calculated distance in cm for Second Sensor
 float distance3; // Stores calculated distance in cm for Third Sensor
 int iterations = 5;
- 
-// Initialize DHT sensor for normal 16mhz Arduino
- 
-DHT dht(DHTPIN, DHTTYPE); 
- 
+  
 void setup() {
   Serial.begin (9600);
-  dht.begin();
 }
  
 void loop()
@@ -49,13 +45,13 @@ void loop()
   
   delay(1000);
   
-  // Measure duration for first sensor
+  // Measure duration the second sensor
   
   duration2 = sonar2.ping_median(iterations);
 
-    delay(1000);
+  delay(1000);
   
-  // Measure duration for first sensor
+  // Measure duration the third sensor
   
   duration3 = sonar3.ping_median(iterations);
   
@@ -76,7 +72,10 @@ void loop()
     Serial.print(distance1);
     Serial.print(" cm ");
     if (distance1 <= 10){
-      //Make vibrator go brrrrr
+      digitalWrite(motorPin, HIGH); //vibrate
+    }
+    else{
+      digitalWrite(motorPin, LOW);  //stop vibrating
     }
     }
     
@@ -88,7 +87,7 @@ void loop()
     else {
     Serial.print(distance2);
     Serial.print(" cm");
-    if (distance1 <= 10){
+    if (distance2 <= 10){
           digitalWrite(motorPin, HIGH); //vibrate
     }
     else{
@@ -103,7 +102,7 @@ void loop()
     else {
     Serial.print(distance2);
     Serial.print(" cm");
-    if (distance1 <= 10){
+    if (distance3 <= 10){
       digitalWrite(motorPin, HIGH); //vibrate
     }
     else{
