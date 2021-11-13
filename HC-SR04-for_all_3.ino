@@ -89,7 +89,11 @@ void loop()
     Serial.print(distance2);
     Serial.print(" cm");
     if (distance1 <= 10){
-    //Make vibrator go brrrrr
+          digitalWrite(motorPin, HIGH); //vibrate
+    }
+    else{
+      digitalWrite(motorPin, LOW);  //stop vibrating
+    }
     }
     }
 
@@ -100,7 +104,10 @@ void loop()
     Serial.print(distance2);
     Serial.print(" cm");
     if (distance1 <= 10){
-    //Make vibrator go brrrrr
+      digitalWrite(motorPin, HIGH); //vibrate
+    }
+    else{
+      digitalWrite(motorPin, LOW);  //stop vibrating
     }
     }
   
