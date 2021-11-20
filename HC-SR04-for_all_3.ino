@@ -5,14 +5,13 @@
 #include "DHT.h";
 #include "NewPing.h"
  
- 
-#define DHTPIN 7       // DHT-22 Output Pin connection
-#define DHTTYPE DHT22   // DHT Type is DHT 22 (AM2302)
 #define TRIGGER_PIN_1  10
 #define ECHO_PIN_1     10
 #define TRIGGER_PIN_2  5
 #define ECHO_PIN_2     5
 #define MAX_DISTANCE 400
+#define TRIGGER_PIN_3  8
+#define ECHO_PIN_3     8
  
 NewPing sonar1(TRIGGER_PIN_1, ECHO_PIN_1, MAX_DISTANCE);
 NewPing sonar2(TRIGGER_PIN_2, ECHO_PIN_2, MAX_DISTANCE);
@@ -25,16 +24,16 @@ float duration3; // Stores third HC-SR04 pulse duration value
 float distance1; // Stores calculated distance in cm for First Sensor
 float distance2; // Stores calculated distance in cm for Second Sensor
 float distance3; // Stores calculated distance in cm for Third Sensor
+const int motorPin = 3; // Stores PIN connected to vibrator motor
 int iterations = 5;
   
 void setup() {
   Serial.begin (9600);
+  pinMode(motorPin, OUTPUT);
 }
  
 void loop()
 {
- 
-  delay(1000);  // Delay so DHT-22 sensor can stabalize
    
   
   // Measure duration for first sensor
@@ -55,7 +54,7 @@ void loop()
   
   duration3 = sonar3.ping_median(iterations);
   
-  // Calculate the distances for both sensors
+  // Calculate the distances for all sensors
   
   distance1 = (duration1 / 2) * 0.0343;
   distance2 = (duration2 / 2) * 0.0343;
@@ -73,6 +72,7 @@ void loop()
     Serial.print(" cm ");
     if (distance1 <= 10){
       digitalWrite(motorPin, HIGH); //vibrate
+      delay(1000);
     }
     else{
       digitalWrite(motorPin, LOW);  //stop vibrating
@@ -89,13 +89,16 @@ void loop()
     Serial.print(" cm");
     if (distance2 <= 10){
           digitalWrite(motorPin, HIGH); //vibrate
+          delay(1000);
     }
     else{
       digitalWrite(motorPin, LOW);  //stop vibrating
     }
     }
     }
-
+  
+    Serial.print("Distance 3: ");
+  
     if (distance3 >= 400 || distance3 <= 2) {
     Serial.print("Out of range");
     }
@@ -104,6 +107,7 @@ void loop()
     Serial.print(" cm");
     if (distance3 <= 10){
       digitalWrite(motorPin, HIGH); //vibrate
+      delay(1000);
     }
     else{
       digitalWrite(motorPin, LOW);  //stop vibrating
