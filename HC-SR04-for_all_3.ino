@@ -2,7 +2,6 @@
 // Check out the page, has a lot of useful info when it comes to HC-SR04
 
 
-#include "DHT.h";
 #include "NewPing.h"
  
 #define TRIGGER_PIN_1  10
@@ -25,7 +24,8 @@ float distance1; // Stores calculated distance in cm for First Sensor
 float distance2; // Stores calculated distance in cm for Second Sensor
 float distance3; // Stores calculated distance in cm for Third Sensor
 const int motorPin = 3; // Stores PIN connected to vibrator motor
-int iterations = 5;
+const int iterations = 5;
+const int danger = 10; // Distance from which vibration engine will start working
   
 void setup() {
   Serial.begin (9600);
@@ -70,7 +70,7 @@ void loop()
     else {
     Serial.print(distance1);
     Serial.print(" cm ");
-    if (distance1 <= 10){
+    if (distance1 <= danger){
       digitalWrite(motorPin, HIGH); //vibrate
       delay(1000);
     }
@@ -87,7 +87,7 @@ void loop()
     else {
     Serial.print(distance2);
     Serial.print(" cm");
-    if (distance2 <= 10){
+    if (distance2 <= danger){
           digitalWrite(motorPin, HIGH); //vibrate
           delay(1000);
     }
@@ -105,7 +105,7 @@ void loop()
     else {
     Serial.print(distance2);
     Serial.print(" cm");
-    if (distance3 <= 10){
+    if (distance3 <= danger){
       digitalWrite(motorPin, HIGH); //vibrate
       delay(1000);
     }
