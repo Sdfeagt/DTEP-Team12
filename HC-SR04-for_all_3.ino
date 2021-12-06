@@ -1,6 +1,3 @@
-// This code uses snippets from https://dronebotworkshop.com/hc-sr04-ultrasonic-distance-sensor-arduino/
-// Check out the page, has a lot of useful info when it comes to HC-SR04
-
 
 #include "NewPing.h"
  
