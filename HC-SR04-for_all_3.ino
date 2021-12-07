@@ -92,7 +92,6 @@ void loop()
       digitalWrite(motorPin, LOW);  //stop vibrating
     }
     }
-    }
   
     Serial.print("Distance 3: ");
   
